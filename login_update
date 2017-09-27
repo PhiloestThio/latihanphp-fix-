@@ -1,25 +1,14 @@
 <?php
 
-if (isset($_POST['submit'])){
-	$username = $_POST['username'];
-	$password = $_POST['password'];
+include "db.php"
 
-	$koneksi = mysqli_connect("localhost", "root", "", "belajar_loginapp");
+$query = "SELECT * FROM users";
+$result = mysqli_query($koneksi, $query);
 
-	if ($koneksi) {
-		echo "we're connected";
-	}else{
-		echo "connection failed";
-	}
+if(!$result){
+	die('Query Failed' . mysqli_error($koneksi));
+}
 
-	$query = "INSERT INTO users (username, password)
-				VALUES ('$username', '$password')";
-	$result = mysqli_query($koneksi, $query);
-
-	if(!$result){
-		die('query Failed' . mysqli_error($koneksi));
-	}
-	}
 ?>
 
 <!DOCTYPE html>
@@ -29,6 +18,7 @@ if (isset($_POST['submit'])){
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
 </head>
 <body>
+
 <div class="container">
 	<div class="col-mc-6">
 		<form action="login_create.php" method="post">
@@ -38,9 +28,19 @@ if (isset($_POST['submit'])){
 			</div>
 			<div class="form-group">
 				<label for="username">Password</label>
-				<input type="text" name="password" class="fprm-control" />
+				<input type="text" name="password" class="form-control" />
 			</div>
-			<input type="submit" name="submit" value="submit" class="btn btn-primary" />
+			<div class="form-group">
+				<select name="id" class="form-control">
+					<?php
+					while($row = mysqli_fetch_assoc($result)){
+						$id = $row['id'];
+						echo "<option value='$id'>$id</option>";
+					}
+					?>
+				</select>
+			</div>
+			<input type="submit" name="submit" value="UPDATE" class="btn btn-primary" />
 		</form>
 	</div>
 </div>
