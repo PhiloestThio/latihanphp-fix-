@@ -1,13 +1,13 @@
-<?php
+<?php //filename: template.php
 ?>
 <!DOCTYPE html>
 <html>
 <head>
 	<title></title>
 	<style>
-		#header{background:yellow;}
-		#sidebar{background:orange;}
-		#footer{background:green;}
+		#header{background: yellow;}
+		#sidebar{background: orange;}
+		#footer{background: green;}
 	</style>
 </head>
 <body>
@@ -16,9 +16,11 @@
 <div id="sidebar">
 	<a href="template.php?page=mahasiswa">Mahasiswa</a>
 	<a href="template.php?page=dosen">Dosen</a>
+	<a href="template.php?page=matkul">Mata Kuliah</a>
 </div>
 
 <div id="konten">INI ADALAH KONTEN
+
 <?php include($_GET['page'] . ".php"); ?>
 
 </div>
