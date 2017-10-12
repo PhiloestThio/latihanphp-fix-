@@ -1,5 +1,6 @@
 <?php // filename: index.php
 include("koneksi.php");
+
 if(isset($_POST['filter'])){
 		$query = "SELECT * FROM Kontak
 		INNER JOIN kategori 
