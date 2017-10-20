@@ -1,10 +1,14 @@
+<?php // filename: form_tambah_kontak.php
+
+include("koneksi.php");
+$query = "SELECT * FROM kategori ";
+$hasil = mysqli_query($db, $query);
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Data Mahasiswa Kalbis</title>
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" 
-	integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" 
-	crossorigin="anonymous">
+	<title>Phone Book</title>
 </head>
 <body>
 <h1>Phone Book</h1>
@@ -16,8 +20,9 @@
 </div>
 <div id="konten">
 	<h2>Tambah Kontak</h2>
-	<form action="proses_tambah_kontak.php" method="post">
-	<tbody>
+	<form action="prosses_tambah_kontak.php" method="post" enctype="multipart/form-data">
+		icon:
+		<input type="file" name="gambar"><br>
 		Nama:
 		<input type="text" name="nama" />
 		<br />
@@ -28,23 +33,14 @@
 		<input type="text" name="email" />
 		<br />
 		Kategori:
-		<select name="kategori"/> 
-		<?php
-		include("koneksi.php");
-		$db = mysqli_connect("localhost","root", "", "kalbis_web");
-		$query = "select * from kategori";
-		$hasil = mysqli_query($db,$query);
-		while($data=mysqli_fetch_array($hasil)){
-		echo "<option value=$data[id]>$data[keterangan]</option>";
-		
-		}
-		?>
+		<select name="kategori">
+		<?php while($row1 = mysqli_fetch_array($hasil)):;?>
+		<option value="<?php echo $row1[0]; ?>"> <?php echo $row1[1]; ?> </option>
+		<?php endwhile; ?>
+		</select>
 		<br />
-		</select>	
-		<input type="submit" name="submit" value="Simpan" />
-		
+		<input type="submit" value="Simpan" />
 	</form>
-	</tbody>
 </div>
 </body>
 </html>
